@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rose Day Surprise 🌹🌷</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { 
+            margin: 0; 
+            height: 100vh; 
+            background: linear-gradient(135deg, #4b0000 0%, #000000 50%, #5c1a2e 100%); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            font-family: 'Comic Sans MS', cursive, sans-serif; 
+            color: white; 
+            overflow: hidden; 
+        }
+        .container { 
+            background: rgba(255, 255, 255, 0.1); 
+            padding: 20px; 
+            border-radius: 30px; 
+            text-align: center; 
+            width: 92%; 
+            max-width: 380px; 
+            box-shadow: 0 0 50px rgba(255, 0, 0, 0.4), 0 0 50px rgba(255, 133, 161, 0.4); 
+            border: 2px solid #ff4d6d;
+            backdrop-filter: blur(15px);
+            z-index: 10;
+        }
+        .emoji-icon { font-size: 50px; margin-bottom: 5px; display: block; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        
+        h1 { color: #ffeb3b; font-size: 24px; text-shadow: 2px 2px #ff0000; margin: 5px 0; }
+        p { font-size: 15px; line-height: 1.4; color: #fff; font-weight: bold; margin-bottom: 10px; }
+        .btn { 
+            padding: 14px; 
+            border: none; 
+            border-radius: 50px; 
+            background: linear-gradient(45deg, #ff0000, #ff85a1); 
+            color: white; 
+            font-size: 14px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            width: 100%; 
+            margin-top: 10px; 
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+        }
+        .media { 
+            display: none; 
+            width: 100%; 
+            margin-top: 10px; 
+            border-radius: 20px; 
+            border: 3px solid #ff85a1; 
+            max-height: 220px; 
+            object-fit: contain; 
+            background: #000;
+        }
+        /* Your Uploaded GIF Style */
+        .custom-gif { width: 150px; margin-top: 15px; border-radius: 15px; border: 2px solid #ff85a1; display: block; margin-left: auto; margin-right: auto; }
+        
+        .falling { position: absolute; top: -50px; animation: fall 5s infinite linear; opacity: 0.8; z-index: 1; }
+        @keyframes fall { 0% { transform: translateY(0vh) rotate(0deg); } 100% { transform: translateY(110vh) rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<div id="drop-container"></div>
+
+<div class="container">
+    <div id="step1">
+        <span class="emoji-icon">🐼</span>
+        <h1>Happy Rose Day 🌹</h1>
+        <p>Roses are red 🌹<br>Tulips so bright 🌷<br>Let’s play ringa ringa roses together,<br>wrapped in one soft night 🌚❤️</p>
+        <button class="btn" onclick="showNext('step1', 'step2')">Meri Photo Dekho ❤️</button>
+    </div>
+
+    <div id="step2" style="display:none;">
+        <span class="emoji-icon">🐱</span>
+        <img src="Roseday.png" class="media" style="display:block;">
+        <button class="btn" onclick="showNext('step2', 'step3')">Pehli Video Dekho 🔥</button>
+    </div>
+
+    <div id="step3" style="display:none;">
+        <span class="emoji-icon">🐶</span>
+        <video id="v1" class="media" style="display:block;" controls><source src="Rosedayy.mp4" type="video/mp4"></video>
+        <button class="btn" onclick="showNext('step3', 'step4')">Ek Or Surprise... 🎁</button>
+    </div>
+
+    <div id="step4" style="display:none;">
+        <span class="emoji-icon">🐰</span>
+        <video id="v2" class="media" style="display:block;" controls><source src="roseday3.mp4" type="video/mp4"></video>
+        <button class="btn" onclick="showNext('step4', 'step5')">Last Wala Zarur Dekhna 😍</button>
+    </div>
+
+    <div id="step5" style="display:none;">
+        <video id="v3" class="media" style="display:block;" controls><source src="roseday4.mp4" type="video/mp4"></video>
+        <img src="gif1.gif" class="custom-gif" alt="Cute Surprise">
+        <h2 style="color:#ffeb3b; margin-top:15px; text-shadow: 1px 1px #ff0000; font-size: 20px;">Happy Rose Day Sharmishtha! ❤️✨</h2>
+    </div>
+</div>
+
+<script>
+    function createDrop() {
+        const container = document.getElementById('drop-container');
+        const drop = document.createElement('div');
+        const items = ['🌹', '🌷', '💖', '🐰', '🧸'];
+        drop.className = 'falling';
+        drop.innerHTML = items[Math.floor(Math.random() * items.length)];
+        drop.style.left = Math.random() * 100 + 'vw';
+        drop.style.fontSize = (Math.random() * 20 + 20) + 'px';
+        drop.style.animationDuration = (Math.random() * 2 + 4) + 's';
+        container.appendChild(drop);
+        setTimeout(() => drop.remove(), 6000);
+    }
+    setInterval(createDrop, 350);
+
+    function showNext(current, next) {
+        document.getElementById(current).style.display = 'none';
+        document.getElementById(next).style.display = 'block';
+        if (current === 'step3') document.getElementById('v1').pause();
+        if (current === 'step4') document.getElementById('v2').pause();
+        if (next === 'step3') document.getElementById('v1').play();
+        if (next === 'step4') document.getElementById('v2').play();
+        if (next === 'step5') document.getElementById('v3').play();
+    }
+</script>
+</body>
+</html>
+
